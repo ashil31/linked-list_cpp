@@ -1,0 +1,64 @@
+//delete in Doubly linked list..
+
+void deleteAtBeg(){
+    node *temp=head;
+    if(temp==NULL){
+        head=NULL;
+        cout<<"Liked List Empty\n";
+        retrun;
+    }
+    if(temp->next==NULL){
+        head=NULL;
+        free(temp);
+        retrun;
+    }
+    head=head->next;
+    head->prev=NULL;
+    temp->next=NULL;
+    free(temp);
+}
+
+void DeleteAtend(){
+    node *temp=head;
+    if(temp==NULL){
+        cout<<"Liked list is Empty.\n";
+        retrun;
+    }
+    if(temp->next==NULL){
+        head=NULL;
+        free(temp);
+        return;
+    }
+
+    while(temp->next->next!=NULL){
+        temp= temp->next;
+    }
+    node *temp1=temp->next;
+    temp->next=NULL;
+    temp1->prev=NULL;
+    free(temp1);
+}
+
+void DeleteAtMiddle(int pos){
+    node *temp=head;
+    if(temp==NULL){
+        cout<<"Liked List is Empty.\n";
+        return;
+    }
+    if(temp->next=NULL){
+        head=NULL;
+        free(temp);
+        return;
+    }
+    int count=1;
+    while(count<pos-1 && temp->next->next!=NULL){
+        count++;
+        temp=temp->next;
+    }
+    node *temp1=temp->next;
+    temp->next=temp1->next;
+    temp1->next->prev=temp;
+    temp1->next=NULL;
+    temp1->prev=NULL;
+    free(temp1);
+}
