@@ -1,0 +1,115 @@
+//Insert_Doubly_Linked_LIst
+
+#include<iostream>
+using namespace std;
+
+typedef struct node{
+    int data;
+    struct node *next;
+    struct node *prev;
+}node;
+
+node *head= NULL;
+
+//Insert At Beginning.. 
+
+void InsertATBeg(int data){
+    node *new_node=(node*)malloc(sizeof(node));
+    if(head==NULL){
+        new_node->data=data;
+        new_node->next=NULL;
+        new_node->prev=NULL;
+        head=new_node;
+        return;
+    }
+    new_node->data=data;
+    new_node->next=head;
+    new_node->prev=NULL;
+    head->prev=new_node;
+    head=new_node;
+}
+//Insert At End...
+
+void InsertAtEnd(int data){
+    node *new_node=(node*)malloc(sizeof(node));
+    new_node->data=data;
+    new_node->next=NULL;
+    new_node->prev=NULL;
+
+    node *temp=head;
+    if(temp==NULL){
+        head=new_node;
+        return;
+    }
+    while (temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=new_node;
+    new_node->prev=temp;
+}
+
+//Insert At Middle...
+
+void InsertAtMiddle(int data,int pos){
+    node *new_node=(node*)malloc(sizeof(node));
+    new_node->data=data;
+    new_node->next=NULL;
+    new_node->prev=NULL;
+
+    node *temp=head;
+    if(head=NULL){
+        head=new_node;
+        return;
+    }
+    int count=1;
+    while(count<pos && temp->next!= NULL){
+        count++;
+        temp=temp->next;
+    }
+    if(temp->next=NULL){
+        temp->next=new_node;
+        new_node->prev=temp;
+        return;
+    }
+    new_node->next=temp->next;
+    new_node->prev=temp;
+    new_node->next->prev=new_node;
+    temp->next=new_node;
+}
+
+void display(){
+    node *temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+int main(){
+    int n;
+    cin>>n;
+    int data;
+    for(int i=0;i<n;i++){
+        cin>>data;
+        InsertATBeg(data);
+    }
+    cout<<"Insert At Beginning :- ";
+    display();
+    cout<<endl;
+    head=NULL;
+    for(int i=0;i<n;i++){
+        cin>>data;
+        InsertAtEnd(data);
+    }
+    cout<<"INsert AT End :- ";
+    display();
+    cout<<endl;
+
+    int pos;
+    cin>>pos;
+    cin>>data;
+    InsertAtMiddle(data,pos);
+    cout<<"Insert AT Middle :- ";
+    display();
+    cout<<endl;
+    head=NULL;
+}
