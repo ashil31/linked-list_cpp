@@ -45,7 +45,7 @@ void DeleteAtMiddle(int pos){
         cout<<"Liked List is Empty.\n";
         return;
     }
-    if(temp->next=NULL){
+    if(temp->next==NULL){
         head=NULL;
         free(temp);
         return;
