@@ -1,0 +1,110 @@
+#include<iostream>
+using namespace std;
+
+typedef struct node{
+    int data;
+    struct node *next;
+}node;
+
+node* head= NULL;
+node* tail=NULL;
+
+//Insert At beginning...
+void insertAtBeg(int data){
+    node *new_node=(node*)malloc(sizeof(node));
+    new_node->data=data;
+    new_node->next=NULL;
+    if(head==NULL){
+        head=new_node;
+        tail=new_node;
+        return;
+    }
+    new_node->next=head;
+    head=new_node;
+    tail->next=head;
+}
+
+//Insert At End...
+
+void insertAtEnd(int data){
+    node *new_node=(node*)malloc(sizeof(node));
+    new_node->data=data;
+    new_node->next=NULL;
+    if(head==NULL){
+        head=new_node;
+        tail=new_node;
+        return;
+    }
+    tail->next=new_node;
+    tail=new_node;
+    tail->next=head;
+}
+
+//Insert AT Middle..
+
+void insertAtMiddle(int data,int pos){
+    node *new_node=(node*)malloc(sizeof(node));
+    new_node->data=data;
+    new_node->next=NULL;
+    if(head==NULL){
+        head=new_node;
+        tail=new_node;
+        return;
+    }
+    node* temp=head;
+    int count=1;
+    if(temp->next==NULL){
+        tail->next=new_node;
+        tail=new_node;
+        tail->next=head;
+        return;
+    }
+    while(count<pos && temp->next!=NULL){
+        count++;
+        temp=temp->next;
+    }
+    if(temp->next==head){
+        tail->next=new_node;
+        tail=new_node;
+        tail->next=head;
+        return;
+    }
+    new_node->next=temp->next;
+    temp->next=new_node;
+    
+}
+
+void display(){
+    node* temp;
+    temp=head;
+    do{
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }while(temp!=head);
+}
+int main(){
+    int n,data;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>data;
+        insertAtBeg(data);
+    }
+    display();
+    cout<<endl;
+    head=NULL;
+
+    for(int i=0;i<n;i++){
+        cin>>data;
+        insertAtEnd(data);
+    }
+    display();
+    cout<<endl;
+
+    int pos;
+    cin>>pos;
+    cin>>data;
+    insertAtMiddle(data,pos);
+    display();
+    cout<<endl;
+    return 0;
+}
